@@ -1,0 +1,12 @@
+model:
+  backbone: efficientnet-b0
+  model_name: auto_encoder
+  # for 1dcnn
+  in_channels: 53
+  num_classes: 5
+  num_layers: 4
+  num_heads: 8
+  dropout_rate: 0.3
+  is_multi_label: False
+  is_pretrained: False
+  n_fold: ${data.n_fold}

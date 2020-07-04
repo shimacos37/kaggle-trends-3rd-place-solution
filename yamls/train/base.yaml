@@ -1,0 +1,8 @@
+train:
+  seed: ${data.seed}
+  epoch: 6
+  batch_size: 4
+  accumulation_steps: 1
+  learning_rate: 0.00001
+  warm_start: False
+  refinement_step: 5

@@ -1,0 +1,10 @@
+store:
+  model_name: stacking
+  workdir: /root/workdir
+  save_path: ${store.workdir}/output/${store.model_name}
+  model_path: ${store.workdir}/output/${store.model_name}/model
+  log_path: ${store.workdir}/output/${store.model_name}/logs
+  result_path: ${store.workdir}/output/${store.model_name}/result
+  gcs_path: ${store.model_name}
+  gcs_project: 
+  bucket_name: 

@@ -1,0 +1,12 @@
+store:
+  workdir: /root/workdir
+  model_name: baseline
+  save_path: ${store.workdir}/output/${store.model_name}/fold${data.n_fold}
+  model_path: ${store.workdir}/output/${store.model_name}/fold${data.n_fold}/model
+  log_path: ${store.workdir}/output/${store.model_name}/fold${data.n_fold}/logs
+  result_path: ${store.workdir}/output/${store.model_name}/fold${data.n_fold}/result
+  gcs_path: ${store.model_name}/fold${data.n_fold}
+  save_feature: False
+  wandb_project: 
+  gcs_project: 
+  bucket_name: 

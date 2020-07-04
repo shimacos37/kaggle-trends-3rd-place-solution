@@ -1,0 +1,8 @@
+defaults:
+  - store: ridge
+data:
+  seed: 777
+randomize_age: False
+hydra:
+  run:
+    dir: ${store.save_path}

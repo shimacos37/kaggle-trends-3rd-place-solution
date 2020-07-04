@@ -1,0 +1,15 @@
+defaults:
+  - store: lgbm
+data:
+  seed: 777
+is_null_importance: False
+is_adversarial_validation: False
+n_run: 100
+n_feature: 1024
+use_3dcnn_feature: False
+use_gnn_feature: False
+use_2plus1dcnn_feature: False
+randomize_age: False
+hydra:
+  run:
+    dir: ${store.save_path}

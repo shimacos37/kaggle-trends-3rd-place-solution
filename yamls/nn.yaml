@@ -1,0 +1,12 @@
+defaults:
+  - core: base
+  - model: base
+  - data: base
+  - store: base
+  - train: base
+  - test: base
+  - hydra/job_logging: colorlog
+  - hydra/hydra_logging: colorlog
+hydra:
+  run:
+    dir: ${store.save_path}

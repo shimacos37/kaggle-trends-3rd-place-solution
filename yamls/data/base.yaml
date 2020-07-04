@@ -1,0 +1,13 @@
+data:
+  workdir: ${store.workdir}
+  dataset_name: auto_encoder_dataset
+  csv_path: ${store.workdir}/input/train_scores.csv
+  n_fold: 0
+  seed: 777
+  image_size: 224
+  is_train: True
+  use_pseudo_label: False
+  train_transform: ${store.workdir}/yamls/train_transform/base.yaml
+  test_transform: ${store.workdir}/yamls/test_transform/base.yaml
+  label_cols: ["age", "domain1_var1", "domain1_var2", "domain2_var1", "domain2_var2"]
+  weights: [0.3, 0.175, 0.175, 0.175, 0.175]

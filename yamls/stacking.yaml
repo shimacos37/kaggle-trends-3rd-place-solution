@@ -1,0 +1,12 @@
+defaults:
+  - store: stacking
+data:
+  seed: 777
+is_null_importance: False
+is_adversarial_validation: False
+is_quantile: False
+is_split_label: False
+randomize_age: False
+hydra:
+  run:
+    dir: ${store.save_path}

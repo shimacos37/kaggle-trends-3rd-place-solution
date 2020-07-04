@@ -1,0 +1,4 @@
+test:
+  is_tta: False
+  is_validation: False
+  batch_size: 8

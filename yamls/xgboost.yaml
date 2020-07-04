@@ -1,0 +1,12 @@
+defaults:
+  - store: xgboost
+data:
+  seed: 777
+n_feature: 1024
+use_3dcnn_feature: False
+use_gnn_feature: False
+use_2plus1dcnn_feature: False
+randomize_age: False
+hydra:
+  run:
+    dir: ${store.save_path}

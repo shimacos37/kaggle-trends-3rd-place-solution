@@ -1,0 +1,6 @@
+base:
+  gpu_id: ['0']
+  num_cores: 8
+  loss_name: 'normilized_mae'
+  scheduler_name: 'warmup_scheduler'
+  opt_name: 'adam'
