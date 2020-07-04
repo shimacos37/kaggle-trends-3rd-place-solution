@@ -57,6 +57,4 @@ RUN source activate rapids\
      && jupyter labextension install @ryantam626/jupyterlab_code_formatter \
      && jupyter serverextension enable --py jupyterlab_code_formatter \
      && jupyter labextension install jupyterlab-plotly
-
-RUN mkdir worlkdir
 WORKDIR /root/workdir
