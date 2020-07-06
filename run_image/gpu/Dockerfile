@@ -13,7 +13,7 @@ RUN ln -s /usr/local/cuda/bin/nvcc /opt/conda/envs/rapids/bin/ \
 ENV CPATH=/usr/local/cuda-10.2/targets/x86_64-linux/include:$CPATH
 
 RUN  source activate rapids \
-     && pip install --ignore-installed opencv-python \
+     && pip install opencv-python \
      albumentations==0.3.3 \
      tqdm \
      joblib \
@@ -58,5 +58,4 @@ RUN source activate rapids\
      && jupyter serverextension enable --py jupyterlab_code_formatter \
      && jupyter labextension install jupyterlab-plotly
 
-RUN mkdir worlkdir
 WORKDIR /root/workdir
