@@ -17,10 +17,7 @@ from google.cloud import storage
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import roc_auc_score
-from src.metrics import (
-    weighted_normalized_absolute_errors,
-    normalized_absolute_errors,
-)
+from src.metrics import weighted_normalized_absolute_errors, normalized_absolute_errors
 from src.io import load_train_data, load_test_data
 from src.randomize import randomize_age
 
@@ -88,7 +85,7 @@ def upload_directory(store_config: DictConfig) -> None:
         if os.path.isdir(filename):
             continue
         destination_blob_name = os.path.join(
-            store_config.gcs_path, filename.split(store_config.save_path)[-1][1:],
+            store_config.gcs_path, filename.split(store_config.save_path)[-1][1:]
         )
         blob = bucket.blob(destination_blob_name)
         blob.upload_from_filename(filename)
@@ -169,69 +166,39 @@ def main(config: DictConfig) -> None:
         "densenet121_domain1_var1_pred",
         "densenet121_domain1_var2_pred",
         "densenet121_domain2_var2_pred",
-        "se_resnext50_32x4d_age_pred",
-        "se_resnext50_32x4d_domain1_var1_pred",
-        "se_resnext50_32x4d_domain1_var2_pred",
-        "se_resnext50_32x4d_domain2_var1_pred",
-        "se_resnext50_32x4d_domain2_var2_pred",
         "3dcnn_resnet18_domain1_var2_pred",
         "3dcnn_resnet18_domain2_var1_pred",
         "3dcnn_resnet18_domain2_var2_pred",
-        "1dresnet18_400label_domain1_var1_pred",
-        "1dresnet18_400label_domain1_var2_pred",
-        "1dresnet18_400label_domain2_var2_pred",
+        "1dresnet18_domain1_var1_pred",
+        "1dresnet18_domain1_var2_pred",
+        "1dresnet18_domain2_var2_pred",
         "simple_3dcnn_domain1_var1_pred",
         "simple_3dcnn_domain1_var2_pred",
         "simple_3dcnn_domain2_var2_pred",
-        "transformer_baseline_domain2_var1_pred",
-        "transformer_baseline_domain2_var2_pred",
-        "transformer_baseline_domain1_var1_pred",
-        "transformer_baseline_domain1_var2_pred",
-        "resnet18_harvard_oxford_domain1_var1_pred",
-        "resnet18_harvard_oxford_domain1_var2_pred",
-        "resnet18_harvard_oxford_domain2_var1_pred",
-        "resnet18_harvard_oxford_domain2_var2_pred",
-        "resnet14d_with_400label_domain1_var1_pred",
-        "lgbm_gnn_feature_1024_nleaves4_random_domain1_var2_pred",
-        "lgbm_gnn_feature_1024_nleaves4_random_domain2_var2_pred",
-        "lgbm_gnn_feature_1024_wo_IC20_domain1_var2_pred",
-        "lgbm_gnn_feature_1024_wo_IC20_domain2_var2_pred",
-        "lgbm_gnn_feature_1024_domain1_var2_pred",
-        "lgbm_gnn_feature_768_domain1_var2_pred",
-        "lgbm_gnn_feature_768_domain2_var2_pred",
-        "xgb_gnn_feature_768_domain1_var2_pred",
-        "xgb_gnn_feature_768_domain2_var1_pred",
-        "xgb_gnn_feature_1024_wo_IC20_domain1_var2_pred",
-        "xgb_gnn_feature_1024_nleaves4_random_domain1_var2_pred",
-        "lgbm_wo_cnn_feature_1024_domain1_var2_pred",
-        "lgbm_cnn_feature_1024_nleaves4_random_domain1_var2_pred",
-        "lgbm_cnn_feature_1024_nleaves4_random_domain2_var2_pred",
-        "lgbm_cnn_feature2_1024_nleaves4_random_domain1_var2_pred",
-        "lgbm_cnn_feature_1024_wo_IC20_domain1_var2_pred",
-        "lgbm_cnn_feature_1024_wo_IC20_domain1_var2_pred",
-        "lgbm_cnn_feature2_1024_wo_IC20_domain2_var2_pred",
-        "lgbm_cnn_feature2_1024_wo_IC20_domain1_var2_pred",
-        "lgbm_cnn_feature2_1024_domain1_var2_pred",
-        "lgbm_cnn_feature2_1024_domain1_var2_pred",
-        "lgbm_cnn_feature2_768_domain1_var2_pred",
-        "lgbm_cnn_feature2_768_age_pred",
-        "lgbm_cnn_feature2_768_domain1_var1_pred",
-        "lgbm_cnn_feature2_768_domain2_var1_pred",
-        "lgbm_cnn_feature2_768_domain2_var2_pred",
-        "xgb_cnn_feature2_768_age_pred",
-        "xgb_cnn_feature2_768_domain1_var2_pred",
-        "xgb_cnn_feature2_768_domain2_var2_pred",
-        "simple_3dcnn_only_3label_noavgpooling_domain1_var2_pred",
+        "transformer_domain2_var1_pred",
+        "transformer_domain2_var2_pred",
+        "transformer_domain1_var1_pred",
+        "transformer_domain1_var2_pred",
+        "lgbm_gnn_feature_domain1_var2_pred",
+        "lgbm_gnn_feature_domain2_var2_pred",
+        "lgbm_gnn_featured_domain1_var2_pred",
+        "lgbm_gnn_featured_domain2_var2_pred",
+        "lgbm_cnn_feature_domain1_var2_pred",
+        "lgbm_cnn_feature_domain2_var2_pred",
+        "lgbm_2plus1dcnn_feature_domain1_var2_pred",
+        "lgbm_2plus1dcnn_feature_domain2_var2_pred",
+        "xgb_2plus1dcnn_feature_age_pred",
+        "xgb_2plus1dcnn_feature_domain1_var2_pred",
+        "xgb_2plus1dcnn_feature_domain2_var2_pred",
         "simple_3dcnn_domain2_var1_pred",
-        "gin_fnc_only_400label_domain1_var1_pred",
-        "gin_fnc_only_400label_domain2_var1_pred",
-        "gin_fnc_only_400label_domain2_var1_pred",
+        "simple_3dcnn_3label_domain1_var2_pred",
+        "gin_domain1_var1_pred",
+        "gin_domain2_var1_pred",
         "2plus1dcnn_resnet10_domain1_var2_pred",
-        "resnest14d_with_400label_domain1_var1_pred",
-        "resnest14d_with_400label_domain1_var2_pred",
-        "resnest14d_with_400label_domain2_var2_pred",
+        "resnest14d_domain1_var1_pred",
+        "resnest14d_domain1_var2_pred",
+        "resnest14d_domain2_var2_pred",
     ]
-
     train_ft_dict = {}
     test_ft_dict = {}
     feature_cols = []
@@ -288,7 +255,7 @@ def main(config: DictConfig) -> None:
     train_df = cudf.from_pandas(train_df)
     test_df = cudf.from_pandas(test_df)
     if config.randomize_age:
-        set_seed(777777777)
+        set_seed(777_777_777)
         train_df["age"] += np.array(
             [randomize_age(age) for age in train_df["age"].values]
         )
@@ -379,7 +346,7 @@ def main(config: DictConfig) -> None:
     sub_df = make_submission(test_df)
     sub_df.to_csv(
         os.path.join(
-            config.store.result_path, f"{config.store.model_name}_submission.csv",
+            config.store.result_path, f"{config.store.model_name}_submission.csv"
         ),
         index=False,
     )
