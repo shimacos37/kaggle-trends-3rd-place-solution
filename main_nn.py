@@ -633,7 +633,7 @@ def main(config):
             early_stop_callback=early_stop_callback,
             max_epochs=config.train.epoch,
             checkpoint_callback=checkpoint_callback,
-            accumulate_grad_batches=config.train.epoch,
+            accumulate_grad_batches=config.train.accumulation_steps,
             use_amp=True if config.model.model_name != "gin" else False,
             amp_level="O1",
             gpus=len(config.base.gpu_id),
