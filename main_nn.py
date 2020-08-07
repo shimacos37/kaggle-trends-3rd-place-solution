@@ -631,7 +631,7 @@ def main(config):
             logger=logger,
             default_save_path=config.store.save_path,
             early_stop_callback=early_stop_callback,
-            max_epochs=1,
+            max_epochs=config.train.epoch,
             checkpoint_callback=checkpoint_callback,
             accumulate_grad_batches=config.train.epoch,
             use_amp=True if config.model.model_name != "gin" else False,
