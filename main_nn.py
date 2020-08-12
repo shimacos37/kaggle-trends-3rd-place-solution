@@ -35,10 +35,6 @@ from src.factories import (
     get_scheduler,
 )
 from src.sync_batchnorm import convert_model
-from src.metrics import (
-    normalized_absolute_errors,
-    weighted_normalized_absolute_errors,
-)
 
 plt.style.use("ggplot")
 
@@ -189,9 +185,7 @@ class Model(pl.LightningModule):
         loss = self.loss(pred, batch["label"]) * self.train_config.accumulation_steps
         metrics = {}
         metrics["loss"] = loss
-        metrics["log"] = {
-            "train_loss": loss,
-        }
+        metrics["log"] = {"train_loss": loss}
 
         return metrics
 
@@ -216,10 +210,7 @@ class Model(pl.LightningModule):
         pred = self.forward(**batch)
         if isinstance(pred, list):
             pred = pred[-1]
-        metrics = {
-            "Id": batch["Id"],
-            "preds": pred,
-        }
+        metrics = {"Id": batch["Id"], "preds": pred}
         if self.store_config.save_feature:
             feature = self.model.get_feature()
             metrics.update({"feature": feature})
@@ -251,12 +242,12 @@ class Model(pl.LightningModule):
                 df[f"feature{i}"] = feature[:, i]
         # For handling log_loss None Error
         results = {
-            f"{label_col}_nae": normalized_absolute_errors(
+            f"{label_col}_nae": self.normalized_absolute_errors(
                 df[label_col].values, df[f"{label_col}_pred"].values
             )
             for label_col in label_cols
         }
-        avg_score = weighted_normalized_absolute_errors(
+        avg_score = self.weighted_normalized_absolute_errors(
             df[label_cols].values,
             df[[f"{col}_pred" for col in label_cols]].values,
             weights=self.data_config.weights,
@@ -576,6 +567,24 @@ class Model(pl.LightningModule):
             if "best_score" in res.keys():
                 self.best_score = res["best_score"]
             self.step = res["step"]
+
+    def weighted_normalized_absolute_errors(self, y_true, y_pred, weights):
+        metrics = []
+        for i in range(len(weights)):
+            is_nan = np.where(y_true[:, i] == 0)
+            y_pred[is_nan, i] = 0
+            diff = np.nansum(np.abs(y_true[:, i] - y_pred[:, i]))
+            norm = np.nansum(y_true[:, i])
+            metrics.append(diff / norm * weights[i])
+
+        return np.sum(metrics).astype(np.float32) / np.sum(weights)
+
+    def normalized_absolute_errors(self, y_true, y_pred):
+        is_nan = np.where(y_true == 0)
+        y_pred[is_nan] = 0
+        diff = np.nansum(np.abs(y_true - y_pred))
+        norm = np.nansum(y_true)
+        return diff / norm
 
 
 @hydra.main(config_path="yamls/nn.yaml")
